@@ -34,6 +34,8 @@ spring:
       server:
         native:
           search-locations: file:/app/config
+        git:
+          uri: file:/app/config
 
 server:
   port: 8100
