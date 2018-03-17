@@ -1,3 +1,9 @@
 .idea
 build
 *.iml
+**/bin
+**/target
+**/.project
+**/.classpath
+**/.settings
+**/.sts4-cache
