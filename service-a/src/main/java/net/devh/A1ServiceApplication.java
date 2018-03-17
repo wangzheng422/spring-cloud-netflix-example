@@ -39,8 +39,8 @@ public class A1ServiceApplication {
                 .build()
                 .pathMapping("/")
                 .useDefaultResponseMessages(false)
-                .apiInfo(new ApiInfo("Service A API Doc", "Service A API Doc", "1.0", "https://github.com/yidongnan/spring-cloud-netflix-example",
-                        new Contact("Michael", "https://github.com/yidongnan", "yidongnan@gmail.com"), null, null))
+                .apiInfo(new ApiInfo("Service A API Doc", "Service A API Doc", "1.0", "https://github.com/wangzheng422/spring-cloud-netflix-example",
+                        new Contact("Geroge", "https://github.com/wangzheng422", "wangzheng422@gmail.com"), null, null))
                 .forCodeGeneration(true);
     }
 
