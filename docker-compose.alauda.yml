@@ -47,7 +47,7 @@ service-b:
     - "rabbitmq:rabbitmq"
     - "zipkin:zipkin"
   ports:
-    - "nginx-10-11-0-7:18082:8080/tcp"
+    - "nginx-10-11-0-7:18082:8070/tcp"
   net: flannel
   size: L
   alauda_lb: ALB
