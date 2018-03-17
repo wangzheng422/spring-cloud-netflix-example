@@ -46,6 +46,8 @@ service-b:
     - "hystrix-dashboard:hystrix-dashboard"
     - "rabbitmq:rabbitmq"
     - "zipkin:zipkin"
+  ports:
+    - "nginx-10-11-0-7:8082:8080/tcp"
   net: flannel
   size: L
   alauda_lb: ALB
@@ -59,6 +61,8 @@ service-a:
     - "hystrix-dashboard:hystrix-dashboard"
     - "rabbitmq:rabbitmq"
     - "zipkin:zipkin"
+  ports:
+    - "nginx-10-11-0-7:8081:8080/tcp"
   net: flannel
   size: L
   alauda_lb: ALB
