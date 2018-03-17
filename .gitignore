@@ -7,3 +7,5 @@ build
 **/.classpath
 **/.settings
 **/.sts4-cache
+**/.gradle
+**/.vscode

@@ -1,6 +1,8 @@
 rabbitmq:
   image: rabbitmq:3-management
   net: flannel
+  ports:
+    - "nginx-10-11-0-7:4369:4369/tcp"
   size: L
   alauda_lb: ALB
 
@@ -26,6 +28,8 @@ config-server:
   links:
     - "eureka-server:eureka-server"
     - "rabbitmq:rabbitmq"
+  ports:
+    - "nginx-10-11-0-7:8100:8100/tcp"
   volumes:
     - /alauda/wzh/config-server/config:/app/config
   net: flannel
