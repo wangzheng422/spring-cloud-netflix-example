@@ -27,6 +27,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
 @EnableHystrix
 @EnableFeignClients
 @SpringBootApplication
+
 @EnableSwagger2
 public class A1ServiceApplication {
 
