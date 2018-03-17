@@ -63,7 +63,7 @@ server:
 
 eureka:
   instance:
-    hostname: service-b
+    hostname: config-server
     prefer-ip-address: true
   client:
     registerWithEureka: true
