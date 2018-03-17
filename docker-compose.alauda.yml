@@ -1,0 +1,98 @@
+rabbitmq:
+  image: rabbitmq:3-management
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+zipkin:
+  image: openzipkin/zipkin:1
+  ports:
+    - "nginx-10-11-0-7:9411:9411/tcp"
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+eureka-server:
+  image:  10.11.0.8:5000/spring-cloud-netflix-example-eureka-server
+  hostname: eureka-server
+  ports:
+    - "nginx-10-11-0-7:8761:8761/tcp"
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+config-server:
+  image:  10.11.0.8:5000/spring-cloud-netflix-example-config-server
+  links:
+    - "eureka-server:eureka-server"
+    - "rabbitmq:rabbitmq"
+  volumes:
+    - /alauda/wzh/config-server/config:/app/config
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+service-b:
+  image:  10.11.0.8:5000/spring-cloud-netflix-example-service-b
+  links:
+    - "eureka-server:eureka-server"
+    - "config-server:config-server"
+    - "hystrix-dashboard:hystrix-dashboard"
+    - "rabbitmq:rabbitmq"
+    - "zipkin:zipkin"
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+service-a:
+  image:  10.11.0.8:5000/spring-cloud-netflix-example-service-a
+  links:
+    - "eureka-server:eureka-server"
+    - "config-server:config-server"
+    - "service-b:service-b"
+    - "hystrix-dashboard:hystrix-dashboard"
+    - "rabbitmq:rabbitmq"
+    - "zipkin:zipkin"
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+admin-dashboard:
+  image:  10.11.0.8:5000/spring-cloud-netflix-example-admin-dashboard
+  ports:
+    - "nginx-10-11-0-7:8040:8040/tcp"
+  links:
+    - "eureka-server:eureka-server"
+    - "rabbitmq:rabbitmq"
+    - "config-server:config-server"
+    - "service-a:service-a"
+    - "service-b:service-b"
+    - "zuul:zuul"
+    - "hystrix-dashboard:hystrix-dashboard"
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+zuul:
+  image:  10.11.0.8:5000/spring-cloud-netflix-example-zuul
+  ports:
+    - "nginx-10-11-0-7:8060:8060/tcp"
+  links:
+    - "eureka-server:eureka-server"
+    - "config-server:config-server"
+    - "service-a:service-a"
+    - "rabbitmq:rabbitmq"
+    - "zipkin:zipkin"
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+hystrix-dashboard:
+  image:  10.11.0.8:5000/spring-cloud-netflix-example-hystrix-dashboard
+  ports:
+    - "nginx-10-11-0-7:8050:8050/tcp"
+  links:
+    - "eureka-server:eureka-server"
+  net: flannel
+  size: L
+  alauda_lb: ALB
