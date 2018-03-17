@@ -34,8 +34,6 @@ config-server:
     - "rabbitmq:rabbitmq"
   ports:
     - "nginx-10-11-0-7:8100:8100/tcp"
-  volumes:
-    - /alauda/wzh/config-server/config:/app/config
   net: flannel
   size: L
   alauda_lb: ALB
