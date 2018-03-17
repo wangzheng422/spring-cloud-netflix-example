@@ -3,6 +3,10 @@ rabbitmq:
   net: flannel
   ports:
     - "nginx-10-11-0-7:4369:4369/tcp"
+    - "nginx-10-11-0-7:5671:5671/tcp"
+    - "nginx-10-11-0-7:5672:5672/tcp"
+    - "nginx-10-11-0-7:25672:25672/tcp"
+    - "nginx-10-11-0-7:15672:15672/tcp"
   size: L
   alauda_lb: ALB
 
