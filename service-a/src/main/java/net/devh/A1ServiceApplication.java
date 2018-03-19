@@ -5,6 +5,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
@@ -25,6 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Email: yidongnan@gmail.com
  * Date: 2016/6/3
  */
+@EnableDiscoveryClient
 @EnableEurekaClient
 @EnableHystrix
 @EnableFeignClients
