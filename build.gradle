@@ -21,6 +21,11 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    compile ':spring-cloud-starter-config'
+    compile ':spring-cloud-starter-eureka'
+}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -42,10 +47,6 @@ subprojects {
             imports {
                 mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
             }
-        }
-        dependencies {
-            compile ':spring-cloud-starter-config'
-            compile ':spring-cloud-starter-eureka'
         }
     }
 }
