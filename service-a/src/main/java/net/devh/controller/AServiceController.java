@@ -2,11 +2,15 @@ package net.devh.controller;
 
 import net.devh.hystrix.HystrixWrappedServiceBClient;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +26,11 @@ import io.swagger.annotations.Api;
 @RestController
 @Api
 public class AServiceController {
+    @Autowired
+    private Registration registration;       // 服务注册
 
+    @Autowired
+    private Tracer tracer;
     @Value("${name:unknown}")
     private String name;
 
@@ -33,7 +41,14 @@ public class AServiceController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printServiceA() {
-        ServiceInstance serviceInstance = discoveryClient.getLocalServiceInstance();
-        return serviceInstance.getServiceId() + " (" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + ")" + "===>name:" + name + "<br/>" + serviceBClient.printServiceB();
+        List<ServiceInstance> list = discoveryClient.getInstances(registration.getServiceId());
+        
+        if (list != null && list.size() > 0) {
+            ServiceInstance serviceInstance = list.get(0);
+            return "zipkin traceid: " + tracer.getCurrentSpan().traceIdString() + " :<br/>" + serviceInstance.getServiceId() + " (" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + ")" + "===>name:" + name + "<br/>" + serviceBClient.printServiceB();
+        }
+
+        return "service A can't find service instance<br/>";
+
     }
 }
