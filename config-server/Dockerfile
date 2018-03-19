@@ -9,5 +9,5 @@ WORKDIR /app
 COPY build/libs/config-server.jar /app
 ADD config /app/
 #VOLUME /app/config
-ENTRYPOINT ["dockerize", "-timeout", "5m", "-wait", "http://eureka-server:8761", "-wait", "tcp://rabbitmq:5672", "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/config-server.jar", "--spring.profiles.active=native,docker"]
+ENTRYPOINT ["dockerize", "-timeout", "5m", "-wait", "http://eureka-server:8761",  "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/config-server.jar", "--spring.profiles.active=native,docker"]
 EXPOSE 8100
