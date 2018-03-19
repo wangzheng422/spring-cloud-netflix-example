@@ -42,7 +42,8 @@ eureka:
     serviceUrl:
             defaultZone: http://eureka-server:8761/eureka/
   server:
-    enable-self-preservation: false
+    enable-self-preservation: true
+    renewalPercentThreshold: 0.49
 
 endpoints:
  shutdown:
