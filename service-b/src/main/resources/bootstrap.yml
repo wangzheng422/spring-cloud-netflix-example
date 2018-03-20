@@ -41,7 +41,7 @@ spring:
     name: service-b
   sleuth:
     sampler:
-      percentage: 1
+      percentage: 1.0
     traceId128: true
   zipkin:
     base-url: http://zipkin:9411/
