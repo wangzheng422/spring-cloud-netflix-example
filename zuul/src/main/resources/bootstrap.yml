@@ -48,6 +48,7 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
+      probability: 1.0
     traceId128: true
   zipkin:
     base-url: http://zipkin:9411/
