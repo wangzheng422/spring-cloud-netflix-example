@@ -37,3 +37,4 @@ eureka:
 
 turbine:
   appConfig: service-a,service-b
+  clusterNameExpression: new String('default')
