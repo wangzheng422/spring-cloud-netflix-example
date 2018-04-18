@@ -11,7 +11,7 @@ for module in "${modules[@]}"; do
     docker push "${REGISTRY}/spring-cloud-netflix-example-${module}:latest"
 done
 
-sed docker-compose.alauda.yml | \
+cat docker-compose.alauda.yml | \
 sed "s/{{ALB_IP}}/${ALB_IP}/g" | \
 sed "s/{{GIT_HOST}}/${GIT_HOST}/g" | \
 sed "s/{{REGISTRY}}/${REGISTRY}/g" | \
