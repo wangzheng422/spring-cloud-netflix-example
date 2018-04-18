@@ -2,44 +2,44 @@ rabbitmq:
   image: rabbitmq:3-management
   net: flannel
   ports:
-    - "nginx-10-11-0-7:4369:4369/tcp"
-    - "nginx-10-11-0-7:5671:5671/tcp"
-    - "nginx-10-11-0-7:5672:5672/tcp"
-    - "nginx-10-11-0-7:25672:25672/tcp"
-    - "nginx-10-11-0-7:15672:15672/tcp"
+    - "{{NGINX}}:4369:4369/tcp"
+    - "{{NGINX}}:5671:5671/tcp"
+    - "{{NGINX}}:5672:5672/tcp"
+    - "{{NGINX}}:25672:25672/tcp"
+    - "{{NGINX}}:15672:15672/tcp"
   size: L
   alauda_lb: ALB
 
 zipkin:
   image: openzipkin/zipkin:2
   ports:
-    - "nginx-10-11-0-7:9411:9411/tcp"
+    - "{{NGINX}}:9411:9411/tcp"
   net: flannel
   size: L
   alauda_lb: ALB
 
 eureka-server:
-  image:  10.11.0.8:5000/spring-cloud-netflix-example-eureka-server
+  image:  {{REGISTRY}}/spring-cloud-netflix-example-eureka-server
   hostname: eureka-server
   ports:
-    - "nginx-10-11-0-7:8761:8761/tcp"
+    - "{{NGINX}}:8761:8761/tcp"
   net: flannel
   size: L
   alauda_lb: ALB
 
 config-server:
-  image:  10.11.0.8:5000/spring-cloud-netflix-example-config-server
+  image:  {{REGISTRY}}/spring-cloud-netflix-example-config-server
   links:
     - "eureka-server:eureka-server"
     - "rabbitmq:rabbitmq"
   ports:
-    - "nginx-10-11-0-7:8100:8100/tcp"
+    - "{{NGINX}}:8100:8100/tcp"
   net: flannel
   size: L
   alauda_lb: ALB
 
 service-b:
-  image:  10.11.0.8:5000/spring-cloud-netflix-example-service-b
+  image:  {{REGISTRY}}/spring-cloud-netflix-example-service-b
   links:
     - "eureka-server:eureka-server"
     - "config-server:config-server"
@@ -47,13 +47,13 @@ service-b:
     - "rabbitmq:rabbitmq"
     - "zipkin:zipkin"
   ports:
-    - "nginx-10-11-0-7:18082:8070/tcp"
+    - "{{NGINX}}:18082:8070/tcp"
   net: flannel
   size: L
   alauda_lb: ALB
 
 service-a:
-  image:  10.11.0.8:5000/spring-cloud-netflix-example-service-a
+  image:  {{REGISTRY}}/spring-cloud-netflix-example-service-a
   links:
     - "eureka-server:eureka-server"
     - "config-server:config-server"
@@ -62,15 +62,15 @@ service-a:
     - "rabbitmq:rabbitmq"
     - "zipkin:zipkin"
   ports:
-    - "nginx-10-11-0-7:18081:8080/tcp"
+    - "{{NGINX}}:18081:8080/tcp"
   net: flannel
   size: L
   alauda_lb: ALB
 
 admin-dashboard:
-  image:  10.11.0.8:5000/spring-cloud-netflix-example-admin-dashboard
+  image:  {{REGISTRY}}/spring-cloud-netflix-example-admin-dashboard
   ports:
-    - "nginx-10-11-0-7:8040:8040/tcp"
+    - "{{NGINX}}:8040:8040/tcp"
   links:
     - "eureka-server:eureka-server"
     - "rabbitmq:rabbitmq"
@@ -84,9 +84,9 @@ admin-dashboard:
   alauda_lb: ALB
 
 zuul:
-  image:  10.11.0.8:5000/spring-cloud-netflix-example-zuul
+  image:  {{REGISTRY}}/spring-cloud-netflix-example-zuul
   ports:
-    - "nginx-10-11-0-7:8060:8060/tcp"
+    - "{{NGINX}}:8060:8060/tcp"
   links:
     - "eureka-server:eureka-server"
     - "config-server:config-server"
@@ -98,9 +98,9 @@ zuul:
   alauda_lb: ALB
 
 hystrix-dashboard:
-  image:  10.11.0.8:5000/spring-cloud-netflix-example-hystrix-dashboard
+  image:  {{REGISTRY}}/spring-cloud-netflix-example-hystrix-dashboard
   ports:
-    - "nginx-10-11-0-7:8050:8050/tcp"
+    - "{{NGINX}}:8050:8050/tcp"
   links:
     - "eureka-server:eureka-server"
   net: flannel

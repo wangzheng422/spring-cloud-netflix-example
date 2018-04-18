@@ -9,3 +9,5 @@ build
 **/.sts4-cache
 **/.gradle
 **/.vscode
+
+**/tmp
